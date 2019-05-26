@@ -1,0 +1,63 @@
+QListWidget#listWidgetFrds,#listWidgetRequest,QTextEdit#textEditMsg,#textEdit{
+  background-color: rgba(236, 240, 241,0.6);
+}
+
+QPushButton#ButtonAgree,#ButtonRefuse {
+    border: 1px solid #bdc3c7;
+    padding: 4px;
+    min-width: 45px;
+    min-height: 12px;
+    background-color:rgba(52, 152, 219,1.0);
+    border-radius: 2px;
+    color: rgba(236, 240, 241,1.0);
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+}
+
+
+QPushButton#ButtonSend{
+  background-color: rgba(52, 152, 219,1.0);
+  border: 1px solid rgba(149, 165, 166,0.8);
+  border-radius: 3px;
+  color: rgba(236, 240, 241,1.0);
+  font-size: 20px;
+  min-width: 100px;
+  min-height: 50px;
+  margin-bottom: 10px;
+}
+
+QPushButton#ButtonSend::hover{
+  background-color:rgba(236, 240, 241,1.0) ;
+  color:rgba(52, 152, 219,1.0) ;
+  font-size: 25px;
+  border: 1px  solid rgba(231, 76, 60,1.0);
+}
+QPushButton#ButtonMy{
+  border-image: url(:/resource/user.png);
+}
+QPushButton#ButtonMy::hover{
+  border-image: url(:/resource/user-hover.png);
+}
+QPushButton#ButtonNewAdd{
+  border-image: url(:/resource/advice-ture.png);
+}
+
+QPushButton#ButtonNewAdd::hover{
+  border-image: url(:/resource/advice-hover-true.png);
+}
+
+
+QPushButton#ButtonAddFriend{
+  border-image: url(:/resource/addNew.png);
+}
+
+QPushButton#ButtonAddFriend::hover{
+  border-image: url(:/resource/addNew-hover.png);
+}
+QPushButton#ButtonMsg{
+  border-image: url(:/resource/message.png);
+}
+QPushButton#ButtonMsg::hover{
+  border-image: url(:/resource/message-hover.png);
+}

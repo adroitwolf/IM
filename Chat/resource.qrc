@@ -1,0 +1,37 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/background.jpg</file>
+        <file>resource/user.png</file>
+        <file>resource/friends.png</file>
+        <file>resource/message.png</file>
+        <file>resource/destroy.png</file>
+        <file>resource/set.png</file>
+        <file>resource/head.jpg</file>
+        <file>resource/online.png</file>
+        <file>resource/outline.png</file>
+        <file>resource/Ip.txt</file>
+        <file>resource/addNew.png</file>
+        <file>resource/itemBack.jpg</file>
+        <file>resource/main-bg.jpg</file>
+        <file>resource/enterwidget.css</file>
+        <file>resource/landwidget.css</file>
+        <file>resource/registwidget.css</file>
+        <file>resource/mainWidget.css</file>
+        <file>resource/login-bg.jpg</file>
+        <file>resource/user-hover.png</file>
+        <file>resource/advice.png</file>
+        <file>resource/advice-hover.png</file>
+        <file>resource/addNew-hover.png</file>
+        <file>resource/message-hover.png</file>
+        <file>resource/bg.png</file>
+        <file>resource/index-bg.jpg</file>
+        <file>resource/register-bg.jpg</file>
+        <file>resource/self-info.jpg</file>
+        <file>resource/addNew.css</file>
+        <file>resource/add-bg.jpg</file>
+        <file>resource/OO.ico</file>
+        <file>resource/advice-hover-true.png</file>
+        <file>resource/advice-ture.png</file>
+        <file>resource/mainWidgetAdd.css</file>
+    </qresource>
+</RCC>

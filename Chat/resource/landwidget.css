@@ -1,0 +1,51 @@
+QLabel#welcome{
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 50px;
+  text-align: center;
+  color: #546de5;
+  font-family: Cursive;
+}
+
+QLabel#label_2,#label_3{
+  font-size: 20px;
+  text-align: center;
+  color: #1B9CFC;
+  font-family: Cursive;
+  margin: 0px 20px;
+}
+
+QPushButton {
+    border: 1px solid #bdc3c7;
+    padding: 4px;
+    min-width: 65px;
+    min-height: 12px;
+    border-radius: 2px;
+    width: 175px;
+    height: 30px;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+}
+QPushButton#pushButton_2{
+  color: #ecf0f1;
+  background-color:#3498db;
+
+  margin-left: 10px;
+}
+QPushButton#pushButton{
+  color: #ecf0f1;
+  background-color:rgba(255, 85, 0, 0.5);
+  margin-right: 10px;
+}
+
+QPushButton#pushButton:hover{
+  color:rgba(255, 85, 0, 0.5) ;
+  background-color:#ecf0f1;
+}
+QPushButton#pushButton_2::hover {
+    color: #3498db;
+    background-color: #ecf0f1;
+    border-color: #444444;
+}

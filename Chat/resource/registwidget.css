@@ -1,0 +1,103 @@
+QLineEdit{
+    color: rgba(255, 85, 0, 0.5);
+    border: 2px solid rgba(236, 240, 241,0.6);
+    color: rgba(231, 76, 60,0.8);
+    background: rgba(236, 240, 241,0.6);
+    border-radius: 2px;
+    min-height: 25px;
+    font-size: 16px;
+    line-height: 25px;
+    min-width: 250px;
+}
+
+QLineEdit:focus{
+    border:2px solid #2980b9;
+}
+
+QLabel {
+  color: #3498db;
+    font-size: 16px;
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+QPushButton {
+    border: 1px solid #bdc3c7;
+    padding: 4px;
+    min-width: 65px;
+    min-height: 12px;
+    border-radius: 2px;
+    width: 100px;
+    height: 30px;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+}
+
+QPushButton#ButtonRegist{
+  position: absolute;
+  left: 10px;
+  color: #ecf0f1;
+  background-color:#3498db;
+}
+QPushButton#ButtonBack{
+  color: #ecf0f1;
+  background-color:rgba(255, 85, 0, 0.5);
+  margin-right: 10px;
+}
+
+QPushButton#ButtonBack:hover{
+  color:rgba(255, 85, 0, 0.5) ;
+  background-color:#ecf0f1;
+}
+QPushButton#ButtonRegist::hover {
+    color: #3498db;
+    background-color: #ecf0f1;
+    border-color: #444444;
+}
+QComboBox {
+    /* 边框宽度,线条样式,颜色 */
+    border:1px solid rgba(34, 166, 179,1.0);
+
+    /* 倒角 */
+    border-radius:2px;
+
+    /* 内边框 */
+    padding:1px 18px 1px 3px;
+
+    min-width:230px;
+}
+
+QComboBox:editable {
+    background:rgba(52, 152, 219,0.6);
+}
+
+QComboBox:!editable,QComboBox::drop-down:editable {
+    background:rgba(236, 240, 241,0.6);
+}
+
+/* 当下拉框打开时,背景颜色渐变 */
+QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+    background: rgba(236, 240, 241,0.6);
+}
+
+/* 当下拉框打开时, 移动显示框文本位置*/
+QComboBox:on {
+    padding-top: 3px;
+    padding-left: 4px;
+}
+
+
+
+/* 下拉按钮位移 */
+QComboBox::down-arrow:on {
+    top: 1px;
+    left: 1px;
+}
+
+/* 下拉列表里的颜色 */
+QComboBox QAbstractItemView {
+    border: 2px solid rgba(72, 52, 212,1.0);
+    selection-background-color: rgba(52, 152, 219,0.6);
+}

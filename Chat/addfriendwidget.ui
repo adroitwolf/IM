@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddFriendWidget</class>
+ <widget class="QWidget" name="AddFriendWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>400</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="minimumSize">
+      <size>
+       <width>378</width>
+       <height>278</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>378</width>
+       <height>278</height>
+      </size>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="page_3">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>对方账号：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
+        <widget class="QLineEdit" name="lineEditId"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="ButtonSearch">
+         <property name="text">
+          <string>搜索</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>153</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="ButtonBack">
+         <property name="text">
+          <string>返回</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_4">
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>11</y>
+         <width>135</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>成功，等待对方同意</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="ButtonOK">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>180</y>
+         <width>93</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>确认</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="page">
+      <property name="minimumSize">
+       <size>
+        <width>378</width>
+        <height>278</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>378</width>
+        <height>278</height>
+       </size>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="labelId">
+         <property name="text">
+          <string>id</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QLabel" name="labelNick">
+         <property name="text">
+          <string>nick</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QLabel" name="labelSex">
+         <property name="text">
+          <string>sex</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QLabel" name="labelsign">
+         <property name="text">
+          <string>sign</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="ButtonSure">
+         <property name="text">
+          <string>确认添加</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>153</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="2">
+        <widget class="QPushButton" name="ButtonBack2">
+         <property name="text">
+          <string>返回</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
