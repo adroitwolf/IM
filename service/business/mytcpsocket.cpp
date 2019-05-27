@@ -260,7 +260,7 @@ void MyTcpSocket::sendAddnew(quint32 socketDescriptor, const User user)
         data.insert("requestUsername",user.getNickName());
         data.insert("requestSex",user.getSex());
         data.insert("requestSign",user.getSign());
-        data.insert("requestStatus",1);
+        data.insert("requestStatus","1");
         jsonObject.insert("data",data);
 
 

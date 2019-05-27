@@ -66,13 +66,20 @@ MainWidget::~MainWidget()
     delete ui;
 }
 
-void MainWidget::nowAdd(User user)
+void MainWidget::nowAdd(User user)//WAIT
 {
     //图标变化
+    QFile qssfile(":/resource/mainWidgetAdd.css");
+    qssfile.open(QFile::ReadOnly);
+    QString qss;
+    qss = qssfile.readAll();
+
+    this->setStyleSheet(qss);
 
     //加入新请求
     QList<User> addNow = userInfo.getAddRequest();
     addNow.append(user);
+    userInfo.setAddRequest(addNow);
 }
 
 void MainWidget::dealFriends()//设置好友列表
@@ -280,8 +287,8 @@ void MainWidget::addNewList(User user)//
     itemWidget->setItemWidget(user);
     QListWidgetItem *item=new QListWidgetItem;
     item->setSizeHint(QSize(250,70));
-    ui->listWidgetRequest->addItem(item);
-    ui->listWidgetRequest->setItemWidget(item,itemWidget);
+    ui->listWidgetFrds->addItem(item);
+    ui->listWidgetFrds->setItemWidget(item,itemWidget);
 
     QList<User> temp = userInfo.getFriends();
     temp.insert(temp.size(),user);
@@ -442,3 +449,4 @@ void MainWidget::on_ButtonRefuse_clicked()
     ui->ButtonRefuse->setEnabled(false);
     ui->ButtonAgree->setEnabled(false);
 }
+

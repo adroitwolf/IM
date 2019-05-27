@@ -178,7 +178,7 @@ void MyTcpServer::receiveDataSlot(const qint32 socketDescriptor,const HostInfo &
         if(userCopy->contains(userQQ)){ //说明此时那个人没有下线
 
             User user = this->action->searchById(selfQQ);
-            emit sendAddnew(socketDescriptor,user);
+            emit sendAddnew(this->userCopy->value(userQQ),user);
         }else{  //将发送请求发送到数据库
             AddFriend addFriend;
             addFriend.setReceiveQQ(userQQ);
@@ -195,7 +195,7 @@ void MyTcpServer::receiveDataSlot(const qint32 socketDescriptor,const HostInfo &
 
         if(userCopy->contains(addFriend.getRequestQQ())){
             User friendL = this->action->searchById(addFriend.getReceiveQQ());
-            emit addFriendSuccess(socketDescriptor,friendL);  //告诉请求者添加好友成功
+            emit addFriendSuccess(this->userCopy->value(addFriend.getRequestQQ()),friendL);  //告诉请求者添加好友成功
         }
 
     }

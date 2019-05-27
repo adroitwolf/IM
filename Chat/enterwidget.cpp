@@ -87,11 +87,11 @@ void EnterWidget::on_ButtonLand_clicked()
         connect(&enterOp,&EnterOp::isEntered,this,&EnterWidget::dealJson,Qt::UniqueConnection);
         connect(&enterOp,&EnterOp::noEntered,this,&EnterWidget::failedSlot,Qt::UniqueConnection);
         connect(&enterOp,&EnterOp::errorEntered,this,&EnterWidget::errorSlot,Qt::UniqueConnection);
-        connect(&enterOp,&EnterOp::isAddNew,this,&EnterWidget::dealAddNew);
-        connect(&enterOp,&EnterOp::loginAndLogout,this,&EnterWidget::loginOut);
-        connect(&enterOp,&EnterOp::messageSignal,this,&EnterWidget::dealMessage);
-        connect(&enterOp,&EnterOp::outlineMessage,this,&EnterWidget::dealOutlineMessage);
-        connect(&enterOp,&EnterOp::nowAddNew,this,&EnterWidget::dealNowAdd);
+        connect(&enterOp,&EnterOp::isAddNew,this,&EnterWidget::dealAddNew,Qt::UniqueConnection);
+        connect(&enterOp,&EnterOp::loginAndLogout,this,&EnterWidget::loginOut,Qt::UniqueConnection);
+        connect(&enterOp,&EnterOp::messageSignal,this,&EnterWidget::dealMessage,Qt::UniqueConnection);
+        connect(&enterOp,&EnterOp::outlineMessage,this,&EnterWidget::dealOutlineMessage,Qt::UniqueConnection);
+        connect(&enterOp,&EnterOp::nowAddNew,this,&EnterWidget::dealNowAdd,Qt::UniqueConnection);
     }
 
 }
@@ -141,4 +141,5 @@ void EnterWidget::dealOutlineMessage(QList<Message> outlineMessage)
 void EnterWidget::dealNowAdd(User user)
 {
     mainWidget.nowAdd(user);
+    qDebug()<<"is received now "<<user.getStatus();
 }

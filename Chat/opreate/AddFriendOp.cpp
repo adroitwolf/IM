@@ -69,7 +69,7 @@ void AddFriendOp::dealSearch(QString qqId,HostInfo info)
                         user.setSex(subJson["sex"].toString());
                         user.setSign(subJson["sign"].toString());
                         emit searchSignal(user);
-                        qDebug()<<"search over";
+
                     }
                     else
                     {

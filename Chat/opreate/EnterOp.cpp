@@ -149,6 +149,7 @@ void EnterOp::dealEnter(User user,HostInfo info)
                 }
                 else if(json["actionType"].toString() == "addnew")
                 {
+                    qDebug()<<"enter addnew";
                     QJsonObject subJson = json.value("data").toObject();
                     User newFriend;
                     newFriend.setAccount(subJson["reQuestqq"].toString());
@@ -156,6 +157,8 @@ void EnterOp::dealEnter(User user,HostInfo info)
                     newFriend.setSex(subJson["requestSex"].toString());
                     newFriend.setSign(subJson["requestSign"].toString());
                     newFriend.setStatus(subJson["requestStatus"].toString());
+
+                    qDebug()<<"addnew deal Json"<<newFriend.getStatus();
                     emit nowAddNew(newFriend);
                 }
 

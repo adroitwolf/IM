@@ -33,6 +33,7 @@ private slots:
     void on_ButtonSearch_clicked();
 
     void searchSlot(User user);
+    void noSearchSlot();
 
     void on_ButtonBack2_clicked();
 

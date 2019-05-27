@@ -86,6 +86,7 @@ void AddFriendWidget::on_ButtonSearch_clicked()
 
     connect(&addOp,&AddFriendOp::searchSignal,this,&AddFriendWidget::searchSlot);
 
+    connect(&addOp,&AddFriendOp::noSearch,this,&AddFriendWidget::noSearchSlot);
 
 }
 
@@ -98,6 +99,11 @@ void AddFriendWidget::searchSlot(User user)
     ui->page->show();
     ui->page_3->hide();
     ui->page_4->hide();
+}
+
+void AddFriendWidget::noSearchSlot()
+{
+    QMessageBox::information(this,"错误","此用户不存在");
 }
 
 void AddFriendWidget::on_ButtonBack2_clicked()
