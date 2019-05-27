@@ -84,8 +84,6 @@ void MainWidget::on_startService_clicked()
     udpServer->startService(port);
 
 
-
-
     //这里给udp上线人的信息
     connect(myServer,&MyTcpServer::adviceUdpLoginInfo,udpServer,&MyUDPServer::getUserInfo);
     connect(myServer,&MyTcpServer::adviceUdpLogoutInfo,udpServer,&MyUDPServer::getLogoutInfo);
