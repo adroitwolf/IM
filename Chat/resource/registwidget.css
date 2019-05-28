@@ -1,7 +1,7 @@
 QLineEdit{
     color: rgba(255, 85, 0, 0.5);
     border: 2px solid rgba(236, 240, 241,0.6);
-    color: rgba(231, 76, 60,0.8);
+    color: #2c3e50;
     background: rgba(236, 240, 241,0.6);
     border-radius: 2px;
     min-height: 25px;
@@ -22,6 +22,10 @@ QLabel {
     background: none;
 }
 
+QLabel#labelqqId{
+  color: #e74c3c;
+}
+
 QPushButton {
     border: 1px solid #bdc3c7;
     padding: 4px;
@@ -33,6 +37,7 @@ QPushButton {
     font-size: 20px;
     line-height: 30px;
     text-align: center;
+    background-color: #c0392b;
 }
 
 QPushButton#ButtonRegist{
