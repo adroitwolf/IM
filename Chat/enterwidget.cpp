@@ -64,7 +64,8 @@ void EnterWidget::on_ButtonBack_clicked()
 
 void EnterWidget::on_ButtonLand_clicked()
 {
-
+//    this->hide();
+//    this->mainWidget.show();
     //获取输入的信息
     QString qqId = ui->lineEditId->text();
     QString pswd = ui->lineEditPswd->text();
@@ -92,6 +93,14 @@ void EnterWidget::on_ButtonLand_clicked()
         connect(&enterOp,&EnterOp::messageSignal,this,&EnterWidget::dealMessage,Qt::UniqueConnection);
         connect(&enterOp,&EnterOp::outlineMessage,this,&EnterWidget::dealOutlineMessage,Qt::UniqueConnection);
         connect(&enterOp,&EnterOp::nowAddNew,this,&EnterWidget::dealNowAdd,Qt::UniqueConnection);
+        connect(&enterOp,&EnterOp::dealFileSend,this,&EnterWidget::dealFileSend,Qt::UniqueConnection);
+        connect(&enterOp,&EnterOp::dealFileSendFailed,this,&EnterWidget::dealFileSendFailed,Qt::UniqueConnection);
+        connect(&enterOp,&EnterOp::dealOutlineRequestFileReceive,this,&EnterWidget::dealOutlineRequestFileReceive,Qt::UniqueConnection);
+        connect(&enterOp,&EnterOp::dealOnlineFileReceive,this,&EnterWidget::dealOnlieFileReceive,Qt::UniqueConnection);
+//        connect(&enterOp,&EnterOp::agreeReceive,this,&EnterWidget::dealAgreeReceive,Qt::UniqueConnection);
+//        connect(&enterOp,&EnterOp::refuseReceive,this,&EnterWidget::dealRefuseReceive,Qt::UniqueConnection);
+//        connect(&enterOp,&EnterOp::requestReceive,this,&EnterWidget::dealRequestReceive,Qt::UniqueConnection);
+
     }
 
 }
@@ -143,3 +152,38 @@ void EnterWidget::dealNowAdd(User user)
     mainWidget.nowAdd(user);
     qDebug()<<"is received now "<<user.getStatus();
 }
+
+void EnterWidget::dealFileSend(QString code)
+{
+    mainWidget.dealFileSend(code);
+}
+
+void EnterWidget::dealFileSendFailed()
+{
+    mainWidget.dealFileSendFailed();
+}
+
+void EnterWidget::dealOutlineRequestFileReceive(QList<FileDate> fileList)
+{
+    mainWidget.dealOutlineRequestFileReceive(fileList);
+}
+
+void EnterWidget::dealOnlieFileReceive(FileDate fileData)
+{
+    mainWidget.dealOnlineFileReceive(fileData);
+}
+
+//void EnterWidget::dealAgreeReceive(QString answerAccount,QString fileName)
+//{
+//    mainWidget.dealAgreeReceive(answerAccount,fileName);
+//}
+
+//void EnterWidget::dealRefuseReceive(QString answerAccount,QString fileName)
+//{
+//    mainWidget.dealRefuseReceive(answerAccount,fileName);
+//}
+
+//void EnterWidget::dealRequestReceive(QString requestName,QString account)
+//{
+//    mainWidget.dealRequestReceive(requestName,account);
+//}

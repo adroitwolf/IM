@@ -5,6 +5,7 @@
 #include "data/userinfo.h"
 #include "business/action.h"
 #include "data/threadmysql.h"
+#include "data/filebean.h"
 
 #include <QObject>
 #include <QTcpSocket>
@@ -30,6 +31,8 @@ public slots:
     void sendAddnew(quint32 socketDescriptor,const User user);
     void addFriendSuccess(qint32 socketDescriptor,const User friendL);
     void sendMessageToUser(qint32 socketDescriptor,const QByteArray data);
+    void answerFileRequest(qint32 socketDescriptor,const QString result);
+    void fileReceive(qint32 socketDescriptor,const FileBean fileBean);
 protected:
 private:
     qintptr socketID;

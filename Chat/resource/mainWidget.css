@@ -1,4 +1,4 @@
-QListWidget#listWidgetFrds,#listWidgetRequest,QTextEdit#textEditMsg,#textEdit{
+﻿QListWidget#listWidgetFrds,#listWidgetRequest,QTextEdit#textEditMsg,#textEdit{
   background-color: rgba(236, 240, 241,0.6);
 }
 
@@ -27,11 +27,28 @@ QPushButton#ButtonSend{
   margin-bottom: 10px;
 }
 
+QPushButton#ButtonFileSend{
+    background-color: rgba(52, 152, 219,1.0);
+    border: 1px solid rgba(149, 165, 166,0.8);
+    border-radius: 3px;
+    color: rgba(236, 240, 241,1.0);
+    font-size: 20px;
+    min-width: 100px;
+    min-height: 50px;
+    margin-bottom: 10px;
+}
+
 QPushButton#ButtonSend::hover{
   background-color:rgba(236, 240, 241,1.0) ;
   color:rgba(52, 152, 219,1.0) ;
   font-size: 25px;
   border: 1px  solid rgba(231, 76, 60,1.0);
+}
+QPushButton#ButtonFileSend::hover{
+background-color:rgba(236, 240, 241,1.0) ;
+color:rgba(52, 152, 219,1.0) ;
+font-size: 25px;
+border: 1px  solid rgba(231, 76, 60,1.0);
 }
 QPushButton#ButtonMy{
   border-image: url(:/resource/user.png);

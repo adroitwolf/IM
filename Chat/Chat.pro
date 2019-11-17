@@ -38,7 +38,9 @@ SOURCES += \
     addfriendwidget.cpp \
     opreate/AddFriendOp.cpp \
     selfinfowidget.cpp \
-    setwidget.cpp
+    setwidget.cpp \
+    opreate/FileSendThread.cpp \
+    filesend.cpp
 
 HEADERS += \
         landwidget.h \
@@ -59,7 +61,10 @@ HEADERS += \
     selfinfowidget.h \
     setwidget.h \
     Json/message.h \
-    Json/userwithmsg.h
+    opreate/FileSendThread.h \
+    filesend.h \
+    Json/filerequest.h \
+    Json/filedata.h
 
 FORMS += \
         landwidget.ui \
@@ -70,7 +75,8 @@ FORMS += \
     itemwidget.ui \
     addfriendwidget.ui \
     selfinfowidget.ui \
-    setwidget.ui
+    setwidget.ui \
+    filesend.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

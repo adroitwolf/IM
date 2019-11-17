@@ -2,7 +2,7 @@
 #define ADDFRIENDS_H
 
 #include <QString>
-\
+
 
 /**
  * function :封装的添加好友信息类

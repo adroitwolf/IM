@@ -7,7 +7,8 @@
 #include <QVariantMap>
 #include <QJsonValue>
 #include <QJsonDocument>
-
+#include <QFileDialog>
+#include <QMessageBox>
 
 #pragma execution_character_set("utf-8")
 
@@ -45,6 +46,7 @@ MainWidget::MainWidget(QWidget *parent) :
 
     //不可点击按钮
     ui->ButtonAgree->setEnabled(false);
+    ui->ButtonFileSend->setEnabled(false);
 
 
     //信号接收
@@ -58,7 +60,20 @@ MainWidget::MainWidget(QWidget *parent) :
             [=]()
             {
                 this->dealListFrdChoose();
+                ui->ButtonFileSend->setEnabled(true);
             });
+
+    connect(&fileWidget,&FileSend::fileSizeOverLoad,[=]{
+                //文件过大
+                QMessageBox::information(this,"OverLoad","选择文件过大,需小于10M");
+                ui->ButtonFileSend->setEnabled(true);
+            });
+    connect(&fileWidget,&FileSend::sendOver,[=]{
+                //文件传输完毕
+                ui->ButtonFileSend->setEnabled(true);
+            });
+
+
 }
 
 MainWidget::~MainWidget()
@@ -66,6 +81,10 @@ MainWidget::~MainWidget()
     delete ui;
 }
 
+/**
+ * @brief MainWidget::nowAdd
+ * @param user
+ */
 void MainWidget::nowAdd(User user)//WAIT
 {
     //图标变化
@@ -82,6 +101,9 @@ void MainWidget::nowAdd(User user)//WAIT
     userInfo.setAddRequest(addNow);
 }
 
+/**
+ * @brief MainWidget::dealFriends
+ */
 void MainWidget::dealFriends()//设置好友列表
 {
     qDebug()<<"enter deal list";
@@ -96,7 +118,9 @@ void MainWidget::dealFriends()//设置好友列表
     }
 }
 
-
+/**
+ * @brief MainWidget::on_ButtonAddFriend_clicked
+ */
 
 void MainWidget::on_ButtonAddFriend_clicked()
 {
@@ -117,6 +141,9 @@ void MainWidget::on_ButtonAddFriend_clicked()
     addWidget.getUserInfo(userInfo.getUser());
 }
 
+/**
+ * @brief MainWidget::on_ButtonMy_clicked
+ */
 void MainWidget::on_ButtonMy_clicked()
 {
 
@@ -244,7 +271,7 @@ void MainWidget::dealListFrdChoose()
     ui->page_2->hide();
     ui->page_3->hide();
     ui->page_4->hide();
-    ui->textEditMsg->clear();
+    ui->textBrowserMsg->clear();
 
     setSelectFlag(true);//设置点击flag
     setCurrentRow(ui->listWidgetFrds->currentRow());//获取点击的行序号
@@ -253,7 +280,7 @@ void MainWidget::dealListFrdChoose()
     {
         if(this->userInfo.getFriends()[ui->listWidgetFrds->currentRow()].getMessage()[i].getSenderQQ() == this->userInfo.getUser().getAccount())
         {
-            ui->textEditMsg->append("[我:"+this->userInfo.getFriends()[ui->listWidgetFrds->currentRow()].getMessage()[i].getCDate()+
+            ui->textBrowserMsg->append("[我:"+this->userInfo.getFriends()[ui->listWidgetFrds->currentRow()].getMessage()[i].getCDate()+
                     "]:"+this->userInfo.getFriends()[ui->listWidgetFrds->currentRow()].getMessage()[i].getContext());
         }
         else
@@ -267,17 +294,14 @@ void MainWidget::dealListFrdChoose()
                     nickName = this->userInfo.getFriends()[j].getNickName();
                 }
             }
-            ui->textEditMsg->append(
+            ui->textBrowserMsg->append(
                         "["+nickName+":"+this->userInfo.getFriends()[ui->listWidgetFrds->currentRow()].getMessage()[i].getCDate()+"]:"+
                         this->userInfo.getFriends()[ui->listWidgetFrds->currentRow()].getMessage()[i].getContext());
         }
     }
 }
 
-//void MainWidget::setNewFriend(User user)
-//{
-//    this->newFriend = user;
-//}
+
 
 void MainWidget::addNewList(User user)//
 {
@@ -351,7 +375,7 @@ void MainWidget::on_ButtonSend_clicked()
         temp.replace(i,friendL);
         this->userInfo.setFriends(temp);
 
-        ui->textEditMsg->append("[我："+time+"]:"+ui->textEdit->toPlainText());
+        ui->textBrowserMsg->append("[我："+time+"]:"+ui->textEdit->toPlainText());
         ui->textEdit->clear();
     }
 }
@@ -406,7 +430,7 @@ void MainWidget::dealMessage(Message msg)
             {
                 QString nickName;
                 nickName = userInfo.getFriends()[i].getNickName();
-                ui->textEditMsg->append("["+nickName+" "+msg.getCDate()+"]:"+msg.getContext());
+                ui->textBrowserMsg->append("["+nickName+" "+msg.getCDate()+"]:"+msg.getContext());
             }
             else
             {
@@ -448,5 +472,77 @@ void MainWidget::on_ButtonRefuse_clicked()
     ui->listWidgetRequest->takeItem(ui->listWidgetRequest->currentRow());
     ui->ButtonRefuse->setEnabled(false);
     ui->ButtonAgree->setEnabled(false);
+}
+
+
+void MainWidget::on_ButtonFileSend_clicked()//发文件
+{
+    //获取文件路径
+        QString filepath = QFileDialog::getOpenFileName(this,"open","../");//路径名
+        if(filepath.isEmpty()==false)
+        {
+
+            this->fileWidget.show();
+            ui->ButtonFileSend->setEnabled(false);
+            //传入数据
+            this->fileWidget.setUserInfo(this->userInfo.getFriends()[ui->listWidgetFrds->currentRow()]);
+            this->fileWidget.setHostInfo(this->info);
+            this->fileWidget.setSelfInfo(this->userInfo.getUser());
+            this->fileWidget.setFilePath(filepath);
+            this->fileWidget.requestSend();
+
+        }
+        else
+        {
+            QMessageBox::information(this,"选择文件路径错误","选择文件路径错误!");
+        }
+
+}
+
+void MainWidget::dealFileSend(QString code)
+{
+    fileWidget.dealSend(code);
+}
+
+void MainWidget::dealFileSendFailed()
+{
+    QMessageBox::information(this,"发送请求失败","发送失败");
+    fileWidget.hide();
+}
+
+void MainWidget::dealOutlineRequestFileReceive(QList<FileDate> fileList)
+{
+    for(int i = 0;i<fileList.size();i++)
+    {
+        QString msg = QString("是否接收("+fileList[i].getSenderQQ()+")的文件:"+fileList[i].getFileName());
+        QMessageBox::StandardButton rb = QMessageBox::question(
+                    this, "文件待接收", msg
+                    , QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        if (rb == QMessageBox::Yes)
+        {
+            this->fileWidget.agreeReceiveRequest(fileList[i]);
+        }
+        else if(rb == QMessageBox::No)
+        {
+            this->fileWidget.refuseReceiveRequest(fileList[i]);
+        }
+    }
+}
+
+void MainWidget::dealOnlineFileReceive(FileDate fileData)
+{
+    QString msg = QString("是否接收("+fileData.getSenderQQ()+")的文件:"+fileData.getFileName());
+    QMessageBox::StandardButton rb = QMessageBox::question(
+                this, "文件待接收", msg
+                , QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    if (rb == QMessageBox::Yes)
+    {
+        this->fileWidget.agreeReceiveRequest(fileData);
+        qDebug()<<"front filesize:"<<fileData.getFileSize();
+    }
+    else if(rb == QMessageBox::No)
+    {
+        this->fileWidget.refuseReceiveRequest(fileData);
+    }
 }
 

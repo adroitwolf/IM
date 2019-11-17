@@ -1,5 +1,5 @@
 #include "action.h"
-
+#include <QUuid>
 
 /**
  * function:处理用户业务
@@ -96,4 +96,22 @@ void Action::storageMsg(Message msg)
 void Action::logout(const QString qq)
 {
     sql->logout(qq);
+}
+
+/**
+ * 存储文件信息
+ * @brief Action::saveFile
+ * @param fileBean
+ */
+void Action::saveFile(FileBean fileBean)
+{
+    sql->saveFile(fileBean);
+}
+
+QString Action::asksend(QString selfqq, QString qq)
+{
+    if(sql->searchFriend(qq,selfqq)){  //证明两者是好友关系
+        return QUuid::createUuid().toString();
+    }
+    return "failed";
 }

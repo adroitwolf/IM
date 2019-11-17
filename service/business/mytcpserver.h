@@ -8,7 +8,7 @@
 #include "data/hostinfo.h"
 #include "data/addfriend.h"
 #include "data/logininfo.h"
-
+#include "data/filebean.h"
 
 #include <QObject>
 #include <QTcpServer>
@@ -47,7 +47,9 @@ signals:
 
     void sendMessageToUser(qint32 socketDescriptor,const QByteArray data);
 
+    void answerFileRequest(qint32 socketDescriptor,const QString result);
 
+    void fileReceive(qint32 socketDescriptor,const FileBean fileBean);
 public slots:
     void receiveDataSlot(const qint32 socketDescriptor,const HostInfo &info);
     void disconnectSlot(qint32 socketDescriptor);

@@ -5,7 +5,7 @@
 #include "data/hostinfo.h"
 #include "data/dbutil.h"
 #include "data/message.h"
-
+#include "data/filebean.h"
 /**
  * function:处理用户业务
  * @brief The Action class
@@ -39,6 +39,12 @@ public:
 
     //离线
     void logout(const QString qq);
+
+    //存储文件信息
+    void saveFile(FileBean fileBean);
+
+    //文件发送请求
+    QString asksend(QString selfqq,QString qq);
 private:
     DBUtil *sql;
 };

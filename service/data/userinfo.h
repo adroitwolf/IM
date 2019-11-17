@@ -3,6 +3,7 @@
 
 #include "data/user.h"
 #include "data/message.h"
+#include "data/filebean.h"
 #include <QList>
 
 
@@ -17,6 +18,7 @@ private:
     QList<User> friends; //用户好友
     QList<Message> msg; //用户离线时候的消息
     QList<User> addRequest; //用户离线时候的添加好友请求
+    QList<FileBean> fileBeans; //用户传文件
     QString info;
 public:
 
@@ -58,6 +60,13 @@ public:
         return msg;
     }
 
+    void setFileBeans(QList<FileBean> fileBeans){
+        this->fileBeans = fileBeans;
+    }
+
+    QList<FileBean> getFileBeans() const{
+        return this->fileBeans;
+    }
 
 };
 

@@ -11,6 +11,8 @@
 #include <QFile>
 #include "setwidget.h"
 #include <QDateTime>
+#include "filesend.h"
+#include "Json/filedata.h"
 
 namespace Ui {
 class MainWidget;
@@ -49,6 +51,14 @@ public:
     void setCurrentRow(int row){this->currentRow = row;}//获取之前选中的行
     int getCurrentRow(){return  this->currentRow;}
 
+    void dealFileSend(QString code);//文件发送
+    void dealFileSendFailed();//文件请求失败
+    void dealOutlineRequestFileReceive(QList<FileDate>);
+    void dealOnlineFileReceive(FileDate fileData);
+//    void dealAgreeReceive(QString answerAccount,QString fileName);//对方同意接收文件
+//    void dealRefuseReceive(QString answerAccount,QString fileName);//对方拒绝接受文件
+//    void dealRequestReceive(QString requestName,QString account);//处理对方的文件发送请求
+
 
 
 private slots:
@@ -72,6 +82,9 @@ private slots:
 
     void on_ButtonRefuse_clicked();
 
+    void on_ButtonFileSend_clicked();
+
+
 signals:
     void disconnect();
 
@@ -87,10 +100,11 @@ private:
     AddFriendWidget addWidget;//加好友界面
     SelfInfoWidget infoWidget;//查看用户信息界面
     SetWidget setWidget;//设置界面
-    QDateTime currentTime;
+    FileSend fileWidget;//文件发送界面
+    QDateTime currentTime;//当前时间
 
-    bool isSelect;
-    int currentRow;
+    bool isSelect;//是否选择标记
+    int currentRow;//当前选择行
 
 };
 

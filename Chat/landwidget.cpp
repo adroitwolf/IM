@@ -8,6 +8,7 @@ LandWidget::LandWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LandWidget)
 {
+//    this->setWindowFlags(Qt::Dialog|Qt::FramelessWindowHint);
     ui->setupUi(this);
     setWindowTitle("OO");
     //初始化类成员

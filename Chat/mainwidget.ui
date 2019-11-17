@@ -187,7 +187,7 @@
     </size>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QTextEdit" name="textEdit">
@@ -225,7 +225,20 @@
       <string>发送</string>
      </property>
     </widget>
-    <widget class="QTextEdit" name="textEditMsg">
+    <widget class="QPushButton" name="ButtonFileSend">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>290</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>传送文件</string>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="textBrowserMsg">
      <property name="geometry">
       <rect>
        <x>11</x>
@@ -233,21 +246,6 @@
        <width>480</width>
        <height>270</height>
       </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>480</width>
-       <height>270</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>480</width>
-       <height>270</height>
-      </size>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
      </property>
     </widget>
    </widget>

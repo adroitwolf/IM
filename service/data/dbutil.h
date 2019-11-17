@@ -10,7 +10,7 @@
 #include "data/userinfo.h"
 #include "data/message.h"
 #include "data/addfriend.h"
-
+#include "data/filebean.h"
 /**
  * function: 数据库操作类
  * @brief The DBUtil class
@@ -47,6 +47,8 @@ public:
     //离线操作
     void logout(QString qq);
     void release(); //释放主线程数据库防止跨线程网速
+    //存储文件
+    void saveFile(FileBean fileBean);
 private:
     QSqlDatabase creatConnection();
     void closeConnection(QSqlDatabase connection);

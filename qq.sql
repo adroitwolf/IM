@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50634
-Source Host           : localhost:3306
+Source Server         : 106.54.223.194_3306
+Source Server Version : 50718
+Source Host           : 106.54.223.194:3306
 Source Database       : qq
 
 Target Server Type    : MYSQL
-Target Server Version : 50634
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2019-05-26 13:08:14
+Date: 2019-11-17 11:52:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `addfriends` (
   KEY `receviceQQ` (`receviceQQ`),
   CONSTRAINT `receviceQQ` FOREIGN KEY (`receviceQQ`) REFERENCES `user` (`qq`),
   CONSTRAINT `requestQQ` FOREIGN KEY (`requestQQ`) REFERENCES `user` (`qq`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for chatinfo
@@ -41,7 +41,22 @@ CREATE TABLE `chatinfo` (
   `receiveqq` bigint(20) NOT NULL,
   `cdate` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`cno`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for file
+-- ----------------------------
+DROP TABLE IF EXISTS `file`;
+CREATE TABLE `file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fileName` varchar(255) DEFAULT NULL COMMENT '文件名称',
+  `fileTime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `fileSize` int(11) DEFAULT NULL,
+  `UUID` varchar(100) DEFAULT NULL,
+  `sendQQ` bigint(20) DEFAULT NULL,
+  `receviceQQ` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for friends
@@ -54,7 +69,7 @@ CREATE TABLE `friends` (
   `fstatus` int(11) NOT NULL COMMENT '1在线-0离线',
   `FNickName` varchar(20) NOT NULL,
   PRIMARY KEY (`Fno`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for login
@@ -71,7 +86,7 @@ CREATE TABLE `login` (
   PRIMARY KEY (`Lno`),
   UNIQUE KEY `QQ` (`Lqq`) USING HASH,
   CONSTRAINT `qqId` FOREIGN KEY (`Lqq`) REFERENCES `user` (`qq`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for user
@@ -84,4 +99,4 @@ CREATE TABLE `user` (
   `nickname` varchar(10) NOT NULL,
   `sex` varchar(5) NOT NULL,
   PRIMARY KEY (`qq`)
-) ENGINE=InnoDB AUTO_INCREMENT=10014 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10002 DEFAULT CHARSET=utf8;

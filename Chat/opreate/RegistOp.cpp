@@ -61,6 +61,8 @@ void RegistOp::DealRegist(User *user,HostInfo info)
                     emit RegistOp::noRegist();
                 }
                 emit disConnect();
+                qDebug()<<"regist result";
+                qDebug()<<QString(buf);
             });
     connect(this,&RegistOp::disConnect,
             [=]()

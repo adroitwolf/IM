@@ -1,5 +1,6 @@
 ﻿#include "MainOp.h"
 #include <QHostAddress>
+#include <QFileInfo>
 
 void MainOp::dealAgreeAdd(User self,User user,HostInfo info)
 {
@@ -46,3 +47,8 @@ void MainOp::dealSend(Message msg, HostInfo info)
         udpSocket->writeDatagram(msg2,QHostAddress(info.getIp()),info.getPort().toInt());
         qDebug()<<QString(msg2);
 }
+
+//void MainOp::dealSendFile(QString filepath,HostInfo info)
+//{
+
+//}

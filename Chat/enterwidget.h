@@ -8,7 +8,7 @@
 #include "mainwidget.h"
 #include <QFile>
 #include "Json/message.h"
-
+#include "filesend.h"
 
 namespace Ui {
 class EnterWidget;
@@ -29,9 +29,7 @@ signals:
 
 private slots:
 
-
     void on_ButtonBack_clicked();
-
     void on_ButtonLand_clicked();
     void failedSlot();
     void errorSlot();
@@ -41,7 +39,13 @@ private slots:
     void dealMessage(Message msg);
     void dealOutlineMessage(QList<Message> oulineMessage);
     void dealNowAdd(User user);
-
+    void dealFileSend(QString code);
+    void dealFileSendFailed();
+    void dealOutlineRequestFileReceive(QList<FileDate>);
+    void dealOnlieFileReceive(FileDate fileData);
+//    void dealAgreeReceive(QString answerAccount,QString fileName);//对方同意接受文件
+//    void dealRefuseReceive(QString answerAccount,QString fileName);//对方拒绝
+//    void dealRequestReceive(QString requestName,QString account);//处理文件发送请求函数
 
 private:
     Ui::EnterWidget *ui;

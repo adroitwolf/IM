@@ -9,6 +9,7 @@
 #include "Json/userinfo.h"
 #include "Json/userinfo.h"
 #include "Json/message.h"
+#include "Json/filedata.h"
 
 class EnterOp:public QObject
 {
@@ -30,7 +31,13 @@ signals:
     void loginAndLogout(QString qq,QString status);//上下线通知
     void messageSignal(Message msg);
     void outlineMessage(QList<Message>);
-
+    void dealFileSend(QString code);
+    void dealOutlineRequestFileReceive(QList<FileDate>);//离线文件
+    void dealFileSendFailed();
+    void dealOnlineFileReceive(FileDate fileData);
+//    void agreeReceive(QString answerAccount,QString fileName);//同意接收文件
+//    void refuseReceive(QString answerAccount,QString fileName);//拒绝文件接收
+//    void requestReceive(QString requestName,QString request);//请求文件接收
 
 private:
     QTcpSocket *tcpSocket;//通信套接字

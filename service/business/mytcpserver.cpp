@@ -31,6 +31,8 @@ MyTcpServer::MyTcpServer(QObject *parent,int numConnections) : QTcpServer(parent
     qRegisterMetaType<QMap<qint32,QString>>("QMap<qint32,QString>");
 
     qRegisterMetaType<UserInfo>("UserInfo");
+    qRegisterMetaType<FileBean>("FileBean");
+
 }
 
 void MyTcpServer::incomingConnection( qint32 socketDescriptor)
@@ -81,7 +83,10 @@ void MyTcpServer::incomingConnection( qint32 socketDescriptor)
     //告诉用户添加好友成功
     connect(this,&MyTcpServer::addFriendSuccess,tcptemp,&MyTcpSocket::addFriendSuccess);
 
-
+    //传给请求发送文件方的uuid
+    connect(this,&MyTcpServer::answerFileRequest,tcptemp,&MyTcpSocket::answerFileRequest);
+    //发送给在线用户有文件
+    connect(this,&MyTcpServer::fileReceive,tcptemp,&MyTcpSocket::fileReceive);
     //发送消息
     connect(this,&MyTcpServer::sendMessageToUser,tcptemp,&MyTcpSocket::sendMessageToUser);
 
@@ -150,7 +155,6 @@ void MyTcpServer::receiveDataSlot(const qint32 socketDescriptor,const HostInfo &
         user.setqq(subJson["qq"].toString());
         user.setPwd(subJson["password"].toString());
         UserInfo userInfo = this->action->loginUserAction(user,hostInfo);
-
         LoginInfo loginInfo;
 
         loginInfo.setIp(hostInfo.getIp());
@@ -198,6 +202,26 @@ void MyTcpServer::receiveDataSlot(const qint32 socketDescriptor,const HostInfo &
             emit addFriendSuccess(this->userCopy->value(addFriend.getRequestQQ()),friendL);  //告诉请求者添加好友成功
         }
 
+    }else if(action == "asksend"){  //请求发送文件
+        QJsonObject subJson = json.value("data").toObject();
+        QString uuid = this->action->asksend(subJson.value("senderAccount").toString(),subJson.value("receiverAccount").toString());
+        qDebug()<<"uuid"<<uuid;
+        emit answerFileRequest(this->userCopy->value(subJson.value("senderAccount").toString()),uuid);
+    }else if(action == "upLoadSuccess"){ //接收发送成功请求
+        QJsonObject subJson = json.value("data").toObject();
+        FileBean fileBean;
+        fileBean.setRecver(subJson.value("receiverAccount").toString());
+        fileBean.setSender(subJson.value("senderAccount").toString());
+        fileBean.setUUID(subJson.value("UUID").toString());
+        fileBean.setFileName(subJson.value("fileName").toString());
+        fileBean.setSize(subJson.value("fileSize").toInt());
+        fileBean.setFileTime(subJson.value("fileTime").toString());
+        if(this->userCopy->contains(fileBean.getRecver())){ //判断好友是否在线
+            emit fileReceive(this->userCopy->value(fileBean.getRecver()),fileBean);
+        }else{ //存储到数据库
+            qDebug()<<"存储到数据库"<<fileBean.getRecver();
+            this->action->saveFile(fileBean);
+        }
     }
 
 

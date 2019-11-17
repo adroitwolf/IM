@@ -8,6 +8,7 @@
 #include <QHostAddress>
 #include <QMetaType>
 
+
 #pragma execution_character_set("utf-8")
 
 MyTcpSocket::MyTcpSocket( qint32 socketDescriptor,QMap<qint32,QString> **user,QMap<QString,quint32> **userCopy,QObject *parent) :
@@ -107,7 +108,6 @@ void MyTcpSocket::sendLoginData(qint32 socketDescriptor, const UserInfo info)
                     friend1.insert("qq",selfFriend.getqq());
                     friend1.insert("status",selfFriend.getStatus());
                     friend1.insert("username",selfFriend.getNickName());
-
                     friends.append(friend1);
                 }
                data.insert("friends",friends);
@@ -142,6 +142,21 @@ void MyTcpSocket::sendLoginData(qint32 socketDescriptor, const UserInfo info)
                 }
                 data.insert("addRequests",addRequests);
 
+            }
+            if(!info.getFileBeans().isEmpty()){ //判断是否有离线文件
+                QJsonArray files;
+                foreach (FileBean fileBean, info.getFileBeans()) {
+                    QJsonObject file;
+                    file.insert("fileName",fileBean.getFileName());
+                    file.insert("senderQQ",fileBean.getSender());
+                    file.insert("fileSize",fileBean.getSize());
+                    file.insert("UUID",fileBean.getUUID());
+                    file.insert("fileTime",fileBean.getFileTime());
+                    files.append(file);
+                }
+                qDebug()<<files.count();
+                data.insert("files",files);
+                qDebug()<<"DAO->"<<files.count();
             }
         }
 
@@ -320,5 +335,56 @@ void MyTcpSocket::sendMessageToUser(qint32 socketDescriptor, const QByteArray da
     if(socketID == socketDescriptor){
         qDebug()<<QString(data);
         write(data);
+    }
+}
+
+/**
+ * function: 发送给请求方传输文件请求的随机数列
+ * @brief MyTcpSocket::answerFileRequest
+ * @param socketDescriptor
+ * @param result
+ */
+void MyTcpSocket::answerFileRequest(qint32 socketDescriptor, const QString result)
+{
+    if(socketID == socketDescriptor){
+
+        //打包成json格式
+       QJsonObject jsonObject;
+       jsonObject.insert("actionType","answerFileRequest");
+       //封装data格式
+       QJsonObject data;
+       data.insert("result",result);
+       jsonObject.insert("data",data);
+       QJsonDocument jsonDocument;
+       jsonDocument.setObject(jsonObject);
+
+       QByteArray msg = jsonDocument.toJson(QJsonDocument::Compact);
+       qDebug()<<QString(msg);
+       write(msg);
+    }
+}
+
+void MyTcpSocket::fileReceive(qint32 socketDescriptor, const FileBean fileBean)
+{
+    if(socketID == socketDescriptor){
+
+        //打包成json格式
+       QJsonObject jsonObject;
+       jsonObject.insert("actionType","fileReceive");
+       //封装data格式
+       QJsonObject data;
+       data.insert("receiverAccount",fileBean.getRecver());
+       data.insert("senderAccount",fileBean.getSender());
+       data.insert("fileName",fileBean.getFileName());
+       data.insert("fileTime",fileBean.getFileTime());
+       data.insert("fileSize",QString::number(fileBean.getSize()));
+       data.insert("UUID",fileBean.getUUID());
+       jsonObject.insert("data",data);
+       QJsonDocument jsonDocument;
+       jsonDocument.setObject(jsonObject);
+
+       QByteArray msg = jsonDocument.toJson(QJsonDocument::Compact);
+       qDebug()<<QString(msg);
+       write(msg);
     }
 }

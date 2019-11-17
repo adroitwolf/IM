@@ -45,7 +45,8 @@ HEADERS  +=\
     data/addfriendinfo.h \
     data/addfriend.h \
     data/logininfo.h \
-    data/threadmysql.h
+    data/threadmysql.h \
+    data/filebean.h
 
 FORMS    += mainwidget.ui
 

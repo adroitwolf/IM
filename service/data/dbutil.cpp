@@ -55,7 +55,11 @@ static const QString CONSUMER_ADD_FRIEND_INFO_SQL =
 static const QString DELETE_MESSAGE_SQL =
         "delete from chatinfo where receiveqq = '%1'";
 
+static const QString GET_FILE_SQL =
+        "select * from file  WHERE receviceQQ = '%1';";
 
+static const QString CONSUMER_FILE_SQL =
+        "delete from file where receviceQQ = '%1'";
 //搜索好友
 static const QString SEARCH_BY_ID_SQL =
         "select * from user where qq = '%1'";
@@ -76,6 +80,10 @@ const static QString ADD_FRIEND_TO_DB_SQL =
 //储存离线消息
 const static QString ADD_MSG_SQL =
         "insert into chatinfo (context,sendqq,receiveqq,cdate) values('%1','%2','%3','%4')";
+
+// 暂存文件消息
+const static QString SAVE_FILE =
+        "INSERT INTO file(fileName ,fileTime,fileSize,UUID,sendQQ,receviceQQ) VALUES('%1','%2','%3','%4','%5','%6')";
 
 DBUtil::DBUtil(QObject *parent) : QObject(parent)
 {
@@ -136,6 +144,28 @@ void DBUtil::closeConnection(QSqlDatabase connection)
 void DBUtil::release()
 {
     ConnectionPool::release();
+}
+
+/**
+ * 存储文件
+ * @brief DBUtil::saveFile
+ * @param fileBean
+ */
+void DBUtil::saveFile(FileBean fileBean)
+{
+    QSqlDatabase sql = creatConnection();
+    QSqlQuery query(sql);
+    if(!query.exec(SAVE_FILE.arg(fileBean.getFileName())
+                  .arg(fileBean.getFileTime())
+                  .arg(fileBean.getSize())
+                   .arg(fileBean.getUUID())
+                  .arg(fileBean.getSender())
+                   .arg(fileBean.getRecver()))){
+        qDebug()<<"存储文件失败";
+    }
+
+    sql.commit();
+
 }
 
 
@@ -339,17 +369,36 @@ UserInfo DBUtil::loginUser(User user,HostInfo info)
 
 
 
-        if(!query2.exec(CONSUMER_ADD_FRIEND_INFO_SQL.arg(mUser.getqq()))){
-            qDebug()<<QString("用户登陆DAO");
-        }
+
         addRequest.append(user);
     }
 
+    if(!query.exec(CONSUMER_ADD_FRIEND_INFO_SQL.arg(mUser.getqq()))){
+        qDebug()<<QString("用户消费添加好友请求失败");
+    }
+    // 获取离线文件
+     QList<FileBean> files;
+     if(!query.exec(GET_FILE_SQL.arg(mUser.getqq()))){
+         qDebug()<<QString("用户获取离线文件失败");
+     }
 
+     while (query.next()) {
+         FileBean file;
+         file.setFileName(query.value(1).toString());
+         file.setFileTime(query.value(2).toString());
+         file.setSender(query.value(5).toString());
+         file.setSize(query.value(3).toInt());
+         file.setUUID(query.value(4).toString());
+         files.append(file);
+     }
+
+
+     if(!query.exec(CONSUMER_FILE_SQL.arg(mUser.getqq()))){
+         qDebug()<<QString("消费文件失败");
+     }
+    userInfo.setFileBeans(files);
     userInfo.setInfo("success");
-
     userInfo.setAddRequest(addRequest);
-
 
 
     closeConnection(sql);

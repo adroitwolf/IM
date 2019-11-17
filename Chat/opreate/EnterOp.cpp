@@ -61,6 +61,7 @@ void EnterOp::dealEnter(User user,HostInfo info)
                         QJsonArray friendsJson = subJson.value("friends").toArray();
                         QJsonArray requestJson = subJson.value("addRequests").toArray();
                         QJsonArray messageJson = subJson.value("messages").toArray();
+                        QJsonArray fileJson = subJson.value("files").toArray();
 
                         if(friendsJson.empty() == 0)
                         {
@@ -107,8 +108,27 @@ void EnterOp::dealEnter(User user,HostInfo info)
                             }
 
                         }
+
+                        if(fileJson.empty() == 0)
+                        {
+                            QList<FileDate> fileList;
+                            for(int i = 0;i<fileJson.size();i++)
+                            {
+                                QJsonObject fileLJson = fileJson.at(i).toObject();
+                                FileDate fileL;
+                                fileL.setUUID(fileLJson["UUID"].toString());
+                                fileL.setFileName(fileLJson["fileName"].toString());
+                                fileL.setFileSize(fileLJson["fileSize"].toString());
+                                fileL.setFileTime(fileLJson["fileTime"].toString());
+                                fileL.setSenderQQ(fileLJson["senderQQ"].toString());
+                                fileList.append(fileL);
+                            }
+                            emit EnterOp::dealOutlineRequestFileReceive(fileList);
+
+                        }
                         emit EnterOp::isEntered(userInfo);//发送带有个人信息的信号
-                        emit EnterOp::outlineMessage(messageList);
+                        emit EnterOp::outlineMessage(messageList);//离线消息
+
                     }
                     else if(rs == "failed")
                     {
@@ -161,8 +181,39 @@ void EnterOp::dealEnter(User user,HostInfo info)
                     qDebug()<<"addnew deal Json"<<newFriend.getStatus();
                     emit nowAddNew(newFriend);
                 }
+                else if(json["actionType"].toString() == "answerFileRequest")
+                {
+                    //返回的随机码
+                    QJsonObject subJson = json.value("data").toObject();
+                    QString code = subJson["result"].toString();
+                    if(code == "false")
+                    {
+                        //请求失败
+                        emit dealFileSendFailed();
+                    }
+                    else
+                    {
+                        //发送文件发送信号
+                        emit dealFileSend(code);
+                    }
 
 
+                }
+                else if(json["actionType"].toString() == "fileReceive")
+                {
+                    //收到了接收请求
+                    QJsonObject subJson = json.value("data").toObject();
+
+                    FileDate fileData;
+                    fileData.setUUID(subJson["UUID"].toString());
+                    fileData.setFileName(subJson["fileName"].toString());
+                    fileData.setFileSize(subJson["fileSize"].toString());
+                    fileData.setFileTime(subJson["fileTime"].toString());
+                    fileData.setSenderQQ(subJson["senderAccount"].toString());
+
+                    qDebug()<<"EnterFileSize："<<fileData.getFileSize();
+                    emit dealOnlineFileReceive(fileData);
+                }
             });
     connect(this,&EnterOp::disConnect,
             [=]()
